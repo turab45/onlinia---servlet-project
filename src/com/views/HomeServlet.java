@@ -37,9 +37,6 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter pw = response.getWriter();
 		
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
-		
 		PostDaoImpl postDaoImpl = new PostDaoImpl();
 		UserDaoImpl userDaoImpl = new UserDaoImpl();
 		
@@ -96,7 +93,7 @@ public class HomeServlet extends HttpServlet {
 		for(int i=0; i<allPosts.size(); i++) {
 			User u = userDaoImpl.getUserById(allPosts.get(i).getPostAuthor().getUserId());
 			
-			pw.write("<div class='card border-secondary' style='width: 80%; margin:5px;' ><div class='card-header'><b>"+u.getUserName()+"</b> added a post.</div><div class='card-body text-secondary'><p class='card-text'>"+allPosts.get(i).getPostContent()+"</p><a href='#' class='btn btn-primary'>Comment</a></div></div>");
+			pw.write("<div class='card border-secondary' style='width: 80%; margin:5px;' ><div class='card-header'><b>"+u.getUserName()+"</b> added a post.</div><div class='card-body text-secondary'><p class='card-text'>"+allPosts.get(i).getPostContent()+"</p><a href='AddCommentServlet?id="+allPosts.get(i).getPostId()+"' class='btn btn-primary'>Comment</a></div></div>");
 			
 		}
 		
@@ -117,6 +114,7 @@ public class HomeServlet extends HttpServlet {
 		pw.write("<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous'></script>");
 		pw.write("</body>");
 		pw.write("</html>");
+		
 	}
 
 	/**

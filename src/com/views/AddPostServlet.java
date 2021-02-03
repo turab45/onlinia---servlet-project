@@ -31,7 +31,12 @@ public class AddPostServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-PrintWriter pw = response.getWriter();
+		PrintWriter pw = response.getWriter();
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		
+		if (user != null) {
 		
 		pw.write("<!doctype html>");
 		pw.write("<html lang='en'>");
@@ -97,6 +102,9 @@ PrintWriter pw = response.getWriter();
 		pw.write("<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous'></script>");
 		pw.write("</body>");
 		pw.write("</html>");
+		}else {
+			response.sendRedirect("LoginServlet");
+		}
 	}
 
 	/**

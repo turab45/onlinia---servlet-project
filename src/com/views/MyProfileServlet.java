@@ -2,6 +2,7 @@ package com.views;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.daoimpl.PostDaoImpl;
 import com.daoimpl.UserDaoImpl;
+import com.modals.Post;
 import com.modals.User;
 
 /**
@@ -36,12 +39,21 @@ public class MyProfileServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
+		
+		
+		if (user != null) {
+			
+			PostDaoImpl postDaoImpl = new PostDaoImpl();
+			UserDaoImpl userDaoImpl = new UserDaoImpl();
+			
+			
 		System.out.println("username by session: "+user.getUserName());
-		UserDaoImpl userDaoImpl = new UserDaoImpl();
 		Integer userId = userDaoImpl.getUserIdByName(user.getUserName());
 		System.out.println("User id by database: "+userId);
 		User u = userDaoImpl.getUserById(userId);
 		//System.out.println("username by database: "+u.getUserName());
+		
+		List<Post> allPosts = postDaoImpl.getAllPostsOfAuthor(userId);
 		
 		pw.write("<!doctype html>");
 		pw.write("<html lang='en'>");
@@ -82,9 +94,9 @@ public class MyProfileServlet extends HttpServlet {
 		pw.write("</form>");
 		pw.write("</div>");
 		pw.write("</nav>");
-		pw.write("<div class='d-flex justify-content-center'>");
-		pw.write("<div class='container'>");
-		pw.write("<div class='card' style='width: 30rem; display: inline-block; margin: 50px 240px;'>");
+		pw.write("<div style='flex-direction: column;justify-content: center;align-items: center;'>");
+		pw.write("<div class='container' style='display:flex; justify-content:center; margin:5px;'>");
+		pw.write("<div class='card' style='width: 30rem;'>");
 		pw.write("<div class='card-header'>My Profile</div>");
 		pw.write("<ul class='list-group list-group-flush'>");
 	
@@ -106,7 +118,19 @@ public class MyProfileServlet extends HttpServlet {
 		pw.write("</div>");
 		
 		pw.write("</div>");
-		pw.write("");
+	
+		
+		System.out.println("Size of allPosts is "+allPosts.size());
+		
+		pw.write("<div style='margin:20px;display:flex; flex-direction:column; justify-content:center; align-items: center;'>");
+		pw.write("<h6 style='margin:5px'>My Posts</h6>");
+		for(int i=0; i<allPosts.size(); i++) {
+			User us = userDaoImpl.getUserById(allPosts.get(i).getPostAuthor().getUserId());
+			
+			pw.write("<div class='card border-secondary' style='width: 80%; margin:5px;' ><div class='card-header'><b>"+us.getUserName()+"</b> added a post.</div><div class='card-body text-secondary'><p class='card-text'>"+allPosts.get(i).getPostContent()+"</p><a href='#' class='btn btn-primary'>Comment</a></div></div>");
+			
+		}
+		pw.write("</div>");
 		
 		
 		pw.write("</div>");
@@ -117,6 +141,9 @@ public class MyProfileServlet extends HttpServlet {
 		pw.write("<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous'></script>");
 		pw.write("</body>");
 		pw.write("</html>");
+		}else {
+			response.sendRedirect("LoginServlet");
+		}
 	}
 
 	/**

@@ -41,35 +41,66 @@ PrintWriter pw = response.getWriter();
 		pw.write("<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>");
 		pw.write("<title>Sign Up - Register Yourself</title>");
 		pw.write("</head>");
-		pw.write(" <body style='background: rgb(69,149,158); background: linear-gradient(90deg, rgba(69,149,158,1) 13%, rgba(31,55,107,1) 73%);'>");
+		pw.write(" <body>");
+		
+		pw.write("<div class='container'>");
+		pw.write("<nav class='navbar navbar-expand-lg navbar-primary bg-primary'>");
+		pw.write("<a class='navbar-brand' href='#' style='color:white; font-weight:bold;'>Onlinia</a>");
+		pw.write("<button class='navbar-toggler btn-light' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>");
+		pw.write("<span class='navbar-toggler-icon'></span>");
+		pw.write("</button>");
+		pw.write("<div class='collapse navbar-collapse' id='navbarSupportedContent'>");
+		pw.write("<ul class='navbar-nav mr-auto'>");
+		pw.write("<li class='nav-item active'>");
+		pw.write("<a class='nav-link' style='color:white; font-weight:bold;' href='HomeServlet'>Home <span class='sr-only'>(current)</span></a>");
+		pw.write("</li>");
+		pw.write("<li class='nav-item'>");
+		pw.write("<a class='nav-link' style='color:white; font-weight:bold;' href='AddPostServlet'>Add Post</a>");
+		pw.write("</li>");
+		pw.write(" <li class='nav-item dropdown'>");
+		pw.write("<a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' style='color:white; font-weight:bold;'> Profile </a>");
+		pw.write("<div class='dropdown-menu' aria-labelledby='navbarDropdown'>");
+		pw.write("<a class='dropdown-item' href='MyProfileServlet'>My Profile</a>");
+		pw.write("<a class='dropdown-item' href='ActivityServlet'>Activity</a>");
+		pw.write("<div class='dropdown-divider'></div>");
+		pw.write("<a class='dropdown-item' href='LogOutServlet'>Logout</a>");
+		pw.write("</div>");
+		pw.write("</ul>");
+		pw.write("<form class='form-inline my-2 my-lg-0'>");
+		pw.write(" <input class='form-control mr-sm-2' type='search' placeholder='Search' aria-label='Search'>");
+		pw.write(" <button class='btn btn-outline-light my-2 my-sm-0' type='submit'>Search</button>");
+		pw.write("</form>");
+		pw.write("</div>");
+		pw.write("</nav>");
 		
 		// Content
-		pw.write("<div class='container' style='display:inline-block; margin: 60px 246px;'>");
+		pw.write("<div class='container'>");
 		pw.write("<div class='w-100 p-3 h-100' style='display:flex; justify-content:center; align-items: center;'>");
 		
-		pw.write("<div style='display: inline-block; width:50%; height:100%; border: 2px solid white; padding: 50px; border-radius: 5px;'>");
+		pw.write("<div style='display: inline-block; width:50%; height:100%; border: 2px solid #d0c9c9; padding: 20px; margin-top:100px; border-radius: 5px;'>");
 		
 		
-		pw.write("<h1 class='text-center' style='color:white;'>Sign Up</h1>");
+		pw.write("<h1 class='text-center' style='color: #007bff!important'>Sign Up</h1>");
 		
 		pw.write("<form style='display:inline-block; width:100%;'>");
 		pw.write(" <div class='form-group'>");
-		pw.write("<label for='exampleInputEmail1' style='color:white;'>Username</label>");
+		pw.write("<label for='exampleInputEmail1' >Username</label>");
 		pw.write("<input type='text' name='username' class='form-control' id='exampleInputEmail1' aria-describedby='emailHelp' placeholder='Enter User Name'>");
 		pw.write("</div>");
 		pw.write(" <div class='form-group'>");
-		pw.write("<label for='exampleInputEmail1' style='color:white;'>Email address</label>");
+		pw.write("<label for='exampleInputEmail1' >Email address</label>");
 		pw.write("<input type='email' name='email' class='form-control' id='exampleInputEmail1' aria-describedby='emailHelp' placeholder='Enter email'>");
 		pw.write("<small id='emailHelp' class='text-light'>We'll never share your email with anyone else.</small>");
 		pw.write("</div>");
 		pw.write(" <div class='form-group'>");
-		pw.write(" <label for='exampleInputPassword1' style='color:white;'>Password</label>");
+		pw.write(" <label for='exampleInputPassword1' >Password</label>");
 		pw.write("<input type='password' name='password' class='form-control' id='exampleInputPassword1' placeholder='Password'>");
 		pw.write("</div>");
 		pw.write("<div class='text-center'>");
 		pw.write(" <button type='submit' class='btn btn-primary' style='color:white; width: 100px;'>Sign Up</button>");
 		pw.write("</div>");
 		pw.write("</form>");
+		pw.write("</div>");
 		
 		
 		pw.write("</div>");

@@ -1,7 +1,9 @@
 package com.views;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.servlet.ServletException;
@@ -54,6 +56,7 @@ public class AddNewPostLogicServlet extends HttpServlet {
 		post.setPostContent(postContent);
 		post.setPostAuthor(u);
 		post.setPostCreateTime(LocalTime.now());
+		post.setPostCreateDate( new java.util.Date());
 		
 		System.out.println(postContent);
 		

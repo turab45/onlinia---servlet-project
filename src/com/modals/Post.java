@@ -1,13 +1,21 @@
 package com.modals;
 
 import java.time.LocalTime;
+import java.util.Date;
 
 public class Post {
 	Integer postId;
 	String postContent;
 	User postAuthor;
 	LocalTime postCreateTime;
+	Date postCreateDate;
 	
+	public Date getPostCreateDate() {
+		return postCreateDate;
+	}
+	public void setPostCreateDate(Date postCreateDate) {
+		this.postCreateDate = postCreateDate;
+	}
 	public Integer getPostId() {
 		return postId;
 	}

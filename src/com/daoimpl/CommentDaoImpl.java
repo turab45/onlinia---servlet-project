@@ -1,6 +1,7 @@
 package com.daoimpl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -25,15 +26,20 @@ public class CommentDaoImpl implements CommentDAO{
 			// convert localtime to sql time
 			Time commentCreateTimeSql =  Time.valueOf(comment.getCommentTime());
 			
-			pstmt = (PreparedStatement) conn.prepareStatement("insert into comments(content,post-id, author-id, create-time) values(?,?,?,?)");
+			Date sqlDAte = new Date(comment.getCommentCreateDate().getTime());
+			
+			pstmt = (PreparedStatement) conn.prepareStatement("insert into comments(content,`post-id`, `author-id`, `create-time`, `create-date`) values(?,?,?,?,?)");
+			
 			pstmt.setString(1, comment.getCommentContent());
 			pstmt.setInt(2, comment.getCommentPost().getPostId());
 			pstmt.setInt(3, comment.getCommentAuthor().getUserId());
 			pstmt.setTime(4,commentCreateTimeSql);
+			pstmt.setDate(5, sqlDAte);
 			
 			row = pstmt.executeUpdate();
 			
 		} catch (Exception e) {
+			System.out.println("Error in add comment : "+e.getMessage());
 			e.printStackTrace();
 		}
 		return row;
@@ -158,17 +164,16 @@ public class CommentDaoImpl implements CommentDAO{
 
 	@Override
 	public List<Comment> getCommentsOfPost(Post post) {
-		List<Comment> allComment = null;
+		List<Comment> allComment = new ArrayList<Comment>();;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			pstmt = (PreparedStatement) conn.prepareStatement("select * from comments where post-id=?");
+			pstmt = (PreparedStatement) conn.prepareStatement("SELECT * FROM comments WHERE `post-id`=?;");
 			pstmt.setInt(1, post.getPostId());
 			
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				allComment = new ArrayList<Comment>();
 				
 				Comment comment = new Comment();
 				

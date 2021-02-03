@@ -1,5 +1,6 @@
 package com.modals;
 
+import java.util.Date;
 import java.time.LocalTime;
 
 public class Comment {
@@ -9,6 +10,16 @@ public class Comment {
 	Post commentPost;
 	User commentAuthor;
 	LocalTime commentTime;
+	Date commentCreateDate;
+	
+	
+	
+	public Date getCommentCreateDate() {
+		return commentCreateDate;
+	}
+	public void setCommentCreateDate(Date commentCreateDate) {
+		this.commentCreateDate = commentCreateDate;
+	}
 	public Integer getCommentId() {
 		return commentId;
 	}
